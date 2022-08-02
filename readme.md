@@ -63,7 +63,7 @@ In the "Step 3" section, enter a value for `Client ID` and `Client Secret` and s
 
 For the demo I used the following values:
 - Client ID: AbpZapier
-- Client Secret: 1q2w3E*
+- Client Secret: 1q2w3e*
 ![Zapier OAuth config Step 3 Client ID and Secret](/images/zapier_auth_client_id_and_secret.png)
 
 ### Configure the endpoints
@@ -73,7 +73,7 @@ The values used here are:
 - Authorization URL: GET : https://{domain name}}/connect/authorize
 - Scope: (we'll come back later and update this value)
 - Access Token Request: POST : https://{{domain name}}/connect/token
-- Test: GET : https://{{domain name}}/api/abp/abp-definition
+- Test: GET : https://{{domain name}}/api/abp/api-definition
 
 ### Save the integration as it sits thus far
 At this point, press the "Save and Continue" button to save your progress and we will switch over to the ABP application setup.
@@ -175,6 +175,19 @@ Save those changes, then relaunch Visual Studio as an administrator (this is to 
 At this point, your new application should be running and secured on the publicly routed domain of your choice.
 ![Screenshot of the browser showing a secured website](/images/secure_site_confirmation.png)
 
+### Add the `Volo.Abp.OpenIddict.AspNetCore` package to your **ZapierDemo.Web** project
+This will expose the controllers necessary for the `/connect/authorize` and `/connect/token` routes to function in your app. **This step is not necessary in an ABP Commercial project template.** Install the `Volo.Abp.OpenIddict.AspNetCore`  via your favorite method. For the purposes of this article, you can do so via the following steps:
+
+- Open the ZapierDemo.Web.csproj file
+- Add the following line inside one of the `<ItemGroup>` tags: `<PackageReference Include="Volo.Abp.OpenIddict.AspNetCore" Version="6.0.0-rc.1" />`
+- Rebuild the project.
+
+![Screenshot of the package reference in the csproj file](/images/csproj_package_reference.png)
+
+Once that line is added, navigate to the `ZapierDemoWebModule.cs` file in that same project and add the following line to your `[DependsOn(…` statement at the top: `typeof(AbpOpenIddictAspNetCoreModule)`
+
+[Screenshot of the DependsOn statement at the top of the ZapierDemoWebModule class](/images/zapierdemowebmodule_dependson.png)
+
 ## Back to Zapier to finish the initial integration
 ### Head back to the Zapier development console and test the authentication in Step 5
 
@@ -182,3 +195,17 @@ Navigate back to [the Zapier developer platform](https://developer.zapier.com/) 
 ![Zapier authentication step 5 for testing](/images/zapier_auth_testing.png)
 
 Click on the button labeled "Sign into AbpZapier (1.0.0)", and you SHOULD get a login window for your application.
+
+[Login screen for your application](/images/zapier_auth_testing_login_screen.png)
+
+Enter your admin credentials and login. This should create a ZapierAccount for this integration. Once you see an available account, you should be able to hit the "Test Authentication" button which should display the output of a successfully request.
+
+[Successful authentication test output in Zapier console](/images/zapier_auth_successful_test.png)
+
+## Conclusion
+
+There you have it! You are now able to explore the triggers and actions components of a Zapier integration with your application, which will all you to perform a number of automation tasks against your internal API. I will be going over configuring a trigger and an action in the next part of this series.
+
+Some important thing to note with this setup:
+- For a production environment, it is recommended to create a separate user for this integration and use that account when you log into the application to authorize Zapier. This way you can granularly control the permissions assigned to that user (Zapier will get the permissions for the account you use to authorize it).
+- This should work with the existing multi-tenancy configuration, but it might get tricky with a very custom tenant resolver. I have tested successfully with a standard subdomain resolver.
