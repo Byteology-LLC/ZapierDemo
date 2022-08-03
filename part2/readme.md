@@ -104,6 +104,7 @@ Pressing the "Test Your Request" button should return a successful test result.
 ![successful test results in zapier](images/zapier_trigger_api_configuration_test_results.png)
 
 Press the "Finish Testing & Continue" button, then move into the "Define your Output" section in Step 3. Press the "Use Response from Test Data" to populate the json model from the successful test, then press the "Generate Output Field Definitions" to auto-populate the output fields.
+
 ![output definition section in zapier](images/zapier_trigger_api_configuration_output_definition.png)
 
 You can leave it like this if you like, I prefer to clean up the data a bit by adding Labels, defining data types, and removing fields that I know I am not going to use in my zaps. If you do that, your output will look something like this when all is said and done:
