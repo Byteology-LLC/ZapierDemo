@@ -87,9 +87,11 @@ Enter the URL Zapier will poll for new items. **This request must return an arra
 This is where ABP makes it a little difficult for us, seeing as how the responses for the API are actually paginated responses with the array of results being a sub item. If you were to test the zapier now, it would fail becuase the array isn't the only thing being returned from the API.
 
 To address this, click on the button that says "Switch to Code Mode". This will take the content that you entered into the form and transcribe that into the javascript code that powers the backend logic. **It only does this transcribing the FIRST time you click that button**. Filling the form first makes it easier to fix the code side because all of the details will be present and you won't necessarily have to dig too deep into Zapier's formatting.
+
 ![Zapier trigger api configuration code mode](images/zapier_trigger_api_configuration_code_mode.png)
 
 If you did everything correct, the fix for the API is easy. Just modify the return line (line 21 in my case) from `return results;` to `return results.items`.
+
 ![zapier trigger api configuration return statement](images/zapier_api_config_return_statement.png)
 
 Now you can press the "Save API Request & Continue" button to move on to Step 2
