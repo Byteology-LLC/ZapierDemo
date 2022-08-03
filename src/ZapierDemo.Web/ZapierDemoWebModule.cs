@@ -38,6 +38,7 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.OpenIddict;
+using OpenIddict.Validation.AspNetCore;
 
 namespace ZapierDemo.Web;
 
@@ -70,6 +71,17 @@ public class ZapierDemoWebModule : AbpModule
                 typeof(ZapierDemoWebModule).Assembly
             );
         });
+
+        //add this block
+        PreConfigure<OpenIddictBuilder>(builder =>
+        {
+            builder.AddValidation(options =>
+            {
+                options.AddAudiences("ZapierDemo");
+                options.UseLocalServer();
+                options.UseAspNetCore();
+            });
+        });
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -85,6 +97,14 @@ public class ZapierDemoWebModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+
+        //Add this line
+        context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+    }
+
+    private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        
     }
 
     private void ConfigureUrls(IConfiguration configuration)
@@ -215,6 +235,7 @@ public class ZapierDemoWebModule : AbpModule
         }
 
         app.UseUnitOfWork();
+        app.UseAbpOpenIddictValidation();
         app.UseAuthorization();
         app.UseSwagger();
         app.UseAbpSwaggerUI(options =>
