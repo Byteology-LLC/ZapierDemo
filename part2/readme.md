@@ -7,7 +7,7 @@ This will be a 3 part series covering different aspects of this process for clar
 - [Part 2) Creating a Zap from the ABP API](/part2/readme.md)
 - [Part 3) ABP Commercial CMSKit Social Automation](/part3/readme.md)
 
-The third part of the series will not be contained withing the source code and will focus primarily on the Zapier side, but it is an interesting use case for the setup (and my original motivation for figuring this out) so I thought I would include it.
+The third part of the series will not be contained within the source code and will focus primarily on the Zapier side, but it is an interesting use case for the setup (and my original motivation for figuring this out) so I thought I would include it.
 
 # Source Code
 The source code for the ABP application utilized during this article can be found [on Github](https://github.com/Byteology-LLC/ZapierDemo)
