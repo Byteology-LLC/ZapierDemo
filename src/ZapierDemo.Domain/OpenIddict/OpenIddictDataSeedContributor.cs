@@ -199,6 +199,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         }
 
         await CreateZapierApplicationAsync(commonScopes); //add this line
+        await CreatePostmanApplicationAsync(commonScopes);
     }
 
     private async Task CreateZapierApplicationAsync(List<string> commonScopes)
@@ -218,10 +219,36 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 grantTypes: new List<string>
                 {
                     OpenIddictConstants.GrantTypes.AuthorizationCode, // zapier uses the OAuth 2.0 AuthorizationCode flow
+                    OpenIddictConstants.GrantTypes.Implicit
                 },
                 scopes: commonScopes, 
                 redirectUri: configurationSection["AbpZapier:RedirectUrl"], // this needs to match the Redirect URL supplied by Zapier
                 clientUri: zapierClientRootUrl // this can technically be whatever, but we set it to https://zapier.com 
+            );
+        }
+    }
+
+    private async Task CreatePostmanApplicationAsync(List<string> commonScopes)
+    {
+        var postmanClientId = "postman";
+        if (!postmanClientId.IsNullOrWhiteSpace())
+        {
+            var postmanRootClientUrl = "http://localhost".EnsureEndsWith('/');
+
+            await CreateApplicationAsync(
+                name: postmanClientId, 
+                type: OpenIddictConstants.ClientTypes.Confidential, 
+                consentType: OpenIddictConstants.ConsentTypes.Implicit, 
+                displayName: "Postman", 
+                secret: "1q2w3E*",
+                grantTypes: new List<string>
+                {
+                    OpenIddictConstants.GrantTypes.AuthorizationCode, 
+                    OpenIddictConstants.GrantTypes.Implicit
+                },
+                scopes: commonScopes,
+                redirectUri: "https://oauth.pstmn.io/v1/callback",
+                clientUri: postmanRootClientUrl 
             );
         }
     }
