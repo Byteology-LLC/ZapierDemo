@@ -43,11 +43,11 @@ Fill out the form with the necessary details. Here I am only creating the bare m
 - Intended Audience: Private
 - Role: I have no affiliation with {integration name}
 - Category: Developer Tools
-![Zapier create integration form](/images/zapier_create_integration_form.png)
+![Zapier create integration form](images/zapier_create_integration_form.png)
 
 ### Start the OAuth 2.0 authentication wizard
 On the integration dashboard, click on the "Authentication" table on the left side, then choose the "OAuth v2" option and press the "Save" button.
- ![Zapier authentication selection page](/images/zapier_auth_selection_page.png)
+ ![Zapier authentication selection page](images/zapier_auth_selection_page.png)
 
 You will be taken to the authentication configuration wizard. 
 
@@ -56,7 +56,7 @@ You can leave the "Configure your Fields" options defaulted in Step 1. I would l
 
 ### Copy the Redirect URL from Step 2, save for later
 In the "Step 2" section, copy and set aside the "OAuth Redirect URL", you will need that for later.
-![Zapier OAuth config Step 2 OAuth redirect URL](/images/zapier_auth_redirect_url.png)
+![Zapier OAuth config Step 2 OAuth redirect URL](images/zapier_auth_redirect_url.png)
 
 ### Enter Client ID and Client Secret in Step 3, remember for later
 In the "Step 3" section, enter a value for `Client ID` and `Client Secret` and save separately. We will need these later as well. When finished, press the "Save and Continue" button and then move on to Step 4.
@@ -64,7 +64,7 @@ In the "Step 3" section, enter a value for `Client ID` and `Client Secret` and s
 For the demo I used the following values:
 - Client ID: AbpZapier
 - Client Secret: 1q2w3e*
-![Zapier OAuth config Step 3 Client ID and Secret](/images/zapier_auth_client_id_and_secret.png)
+![Zapier OAuth config Step 3 Client ID and Secret](images/zapier_auth_client_id_and_secret.png)
 
 ### Configure the endpoints
 In the "Step 4" section, we are configuring our endpoints. The following details should be consistent with the default OpenIddict module setup. Replace the {domain name} value with your publicly routable domain name, i.e. `byteology.co`
@@ -77,7 +77,7 @@ The values used here are:
 
 ### Save the integration as it sits thus far
 At this point, press the "Save and Continue" button to save your progress and we will switch over to the ABP application setup.
-![Zapier OAuth config Step 4 Endpoint Details](/images/zapier_auth_endpoint_details.png)
+![Zapier OAuth config Step 4 Endpoint Details](images/zapier_auth_endpoint_details.png)
 
 ## Create the ABP Project
 
@@ -96,7 +96,7 @@ First, open the `appsettings.json` in the `dbmigrator` project. Under the `OpenI
         "RedirectUrl": "{{the Redirect URL you saved from Step 2 above}}"
       }
 ```
-![Client settings in the appsettings.json file](/images/appsettings_client_details.png)
+![Client settings in the appsettings.json file](images/appsettings_client_details.png)
 
 
 Also, while you are in here, make sure to update the connection string to whatever instance of MongoDB you are using. If you need it, [MongoDB Atlas](https://www.mongodb.com/pricing) does offer a free plan for development that is perfect for things like this.
@@ -151,7 +151,7 @@ private async Task CreateApplicationsAsync()
         await CreateZapierApplicationAsync(commonScopes); //add this line
     }
 ```
-![The CreateZapierApplicationAsync method](/images/createzapierapplicationasync_method.png)
+![The CreateZapierApplicationAsync method](images/createzapierapplicationasync_method.png)
 
 You will need to make note of the last scope in the `commonScopes` code, since this will be the scope that you need to use in Zapier and in some upcoming code in the Web module. For reference, the scope I am referring to in the codeblock above is `ZapierDemo`.
  
@@ -160,7 +160,7 @@ You can technically add the code directly into the `CreateApplicationsAsync` met
 ### Run the DBMigrator project.
 If using Visual Studio, right-click on the DBMigrator project and choose the "Debug => Start New Instance" step to stage your database with the essential details, including your new Zapier client.
 
-![DBMigrator debug output.](/images/dbmigrator_output.png)
+![DBMigrator debug output.](images/dbmigrator_output.png)
 
 ## Modify your development environment to allow for testing
 Make the following modifications to the `launchSettings.json` in the *properties* folder of your **ZapierDemo.Web** project at this point:
@@ -169,12 +169,12 @@ Make the following modifications to the `launchSettings.json` in the *properties
 	- `C:\Program Files (x86)\IIS Express\IisExpressAdminCmd.exe setupsslurl -url:https://byteology.app:443 -certhash:{{your chosen cert thumbprint}} `
 	- kudos to [this article](https://improveandrepeat.com/2020/05/how-to-change-the-https-certificate-in-iis-express/) for showing me this trick.
 
-![Screenshot of my launchSettings.json file contents](/images/launchsettings_setup.png)
+![Screenshot of my launchSettings.json file contents](images/launchsettings_setup.png)
 
 Save those changes, then relaunch Visual Studio as an administrator (this is to avoid an error with IIS Express launching using your new hostname settings).
 
 At this point, your new application should be running and secured on the publicly routed domain of your choice.
-![Screenshot of the browser showing a secured website](/images/secure_site_confirmation.png)
+![Screenshot of the browser showing a secured website](images/secure_site_confirmation.png)
 
 ### Add the `Volo.Abp.OpenIddict.AspNetCore` package to your **ZapierDemo.Web** project
 This will expose the controllers necessary for the `/connect/authorize` and `/connect/token` routes to function in your app. **This step is not necessary in an ABP Commercial project template.** Install the `Volo.Abp.OpenIddict.AspNetCore`  via your favorite method. For the purposes of this article, you can do so via the following steps:
@@ -183,11 +183,11 @@ This will expose the controllers necessary for the `/connect/authorize` and `/co
 - Add the following line inside one of the `<ItemGroup>` tags: `<PackageReference Include="Volo.Abp.OpenIddict.AspNetCore" Version="6.0.0-rc.1" />`
 - Rebuild the project.
 
-![Screenshot of the package reference in the csproj file](/images/csproj_package_reference.png)
+![Screenshot of the package reference in the csproj file](images/csproj_package_reference.png)
 
 Once that line is added, navigate to the `ZapierDemoWebModule.cs` file in that same project and add the following line to your `[DependsOn(…` statement at the top: `typeof(AbpOpenIddictAspNetCoreModule)`
 
-[Screenshot of the DependsOn statement at the top of the ZapierDemoWebModule class](/images/zapierdemowebmodule_dependson.png)
+[Screenshot of the DependsOn statement at the top of the ZapierDemoWebModule class](images/zapierdemowebmodule_dependson.png)
 
 In the `PreConfigureServices` method at the top of the class, add the following block of code:
 ```
@@ -212,18 +212,18 @@ Finally, in the `OnApplicationInitialization` initialization method at the botto
 Navigate back to [the Zapier developer platform](https://developer.zapier.com/) and navigate back to your integration app's OAuth 2.0 authentication setup.
 
 First thing, we will need to add the application scope to the authentication configuration in Step 4. This will need to match the value in the various places we configured inside your application earlier. Here you can see I entered `ZapierDemo`. When you are finised adding this, press the "Save & Continue" button to proceed with testing.
-![zapier auth config scope](/images/zapier_auth_scope.png)
+![zapier auth config scope](images/zapier_auth_scope.png)
 
 Next, move on to Step 5 to start testing.
-![Zapier authentication step 5 for testing](/images/zapier_auth_testing.png)
+![Zapier authentication step 5 for testing](images/zapier_auth_testing.png)
 
 Click on the button labeled "Sign into AbpZapier (1.0.0)", and you SHOULD get a login window for your application.
 
-[Login screen for your application](/images/zapier_auth_testing_login_screen.png)
+[Login screen for your application](images/zapier_auth_testing_login_screen.png)
 
 Enter your admin credentials and login. This should create a ZapierAccount for this integration. Once you see an available account, you should be able to hit the "Test Authentication" button which should display the output of a successfully request.
 
-[Successful authentication test output in Zapier console](/images/zapier_auth_successful_test.png)
+[Successful authentication test output in Zapier console](images/zapier_auth_successful_test.png)
 
 ## Conclusion
 
