@@ -1,5 +1,5 @@
 # Introduction
-This article builds on the foundation established in Part 1 of the series to show you how you can extend the functionality of your system with Zapier so you don't have to build and maintain a separate API code base for each interaction.
+This article builds on the foundation established in Part 1 of the series to show you how you can extend the functionality of your system with Zapier so you don't have to build and maintain a separate API code base for each interaction. Specifically, this will show a real-world scenario where you extend the functionality of the CMSKit pro commercial module to automatically share newly created blog posts to various social media.
 
 This will be a 3 part series covering different aspects of this process for clarity:
 

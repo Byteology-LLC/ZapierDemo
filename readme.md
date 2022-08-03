@@ -1,5 +1,5 @@
 # Introduction
-This article builds on the foundation established in Part 1 of the series to show you how you can extend the functionality of your system with Zapier so you don't have to build and maintain a separate API code base for each interaction.
+This article series will walk you through the steps necessary to create a new ABP application using the latest available build with the OpenIddict identity server and connecting that application to Zapier to extend the automation capabilities of your application without needing to build custom integrations.
 
 This will be a 3 part series covering different aspects of this process for clarity:
 
