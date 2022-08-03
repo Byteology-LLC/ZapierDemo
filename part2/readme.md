@@ -33,16 +33,16 @@ If you are still struggling with allowing public access to your development envi
 ## Get comfortable with swagger
 One of the many wonderful things that the ABP framework provides for us out of the box is a comprehensive and automatically generated OpenAPI documentation sheet. Navigate to your swagger instance by appending `/swagger/index.html` or simply `/swagger` to the end of your application URL. This document will be your guide as you develop triggers and actions inside Zapier, so I encourage you to keep it open for reference as we move along.
 
-![Swagger](/images/swagger.png)
+![Swagger](images/swagger.png)
 
 Specifically, for this article, you want to expand the section detailing the `GET /api/identity/users` endpoint and have that ready for later.
-![Swagger details for the get users endpoint](/images/swagger_get_users.png)
+![Swagger details for the get users endpoint](images/swagger_get_users.png)
 
 ## Building a trigger in Zapier for the ABP framework.
 
 ### Trigger Settings
 Naviate back to [the Zapier developer console](https://developer.zapier.com/) and open the custom integration we configured in Part 1. In the navigation menu on the left-side of the page, click "Triggers", then press the "Add Trigger" button.
-![Zapier development console add trigger button](/images/zapier_add_trigger.png)
+![Zapier development console add trigger button](images/zapier_add_trigger.png)
 
 We are going to be creating a trigger that will fire in the event that a new user is created, so on the "settings" tab, fill out the details for that. The values I used were:
 - Key: new_user
@@ -52,7 +52,7 @@ We are going to be creating a trigger that will fire in the event that a new use
 
 Press the "Save and Continue" button when you are done.
 
-![Zapier trigger settings page](/images/zapier_trigger_settings.png)
+![Zapier trigger settings page](images/zapier_trigger_settings.png)
 
 ### Input Designer
 The input designer is a pretty cool tool for variablizing user input for the API configuration step, but since we aren't looking for any specific user input here. If you want an example of how to configure this I will have an example in Part 3. For now, leave this blank and continue on to the "API Configuration" tab.
@@ -77,7 +77,7 @@ I will also add the following "URL Params" to the query (again, referencing the 
 We are essentially requesting the most recent 25 users created by the system. You can adjust the `MaxResultCount` to essentially any number if you think you will create more than 25 users in a single polling interval. 
 
 Your input here show now look something like this:
-![Zapier trigger api configuration](/images/zapier_trigger_api_configuration_easy.png)
+![Zapier trigger api configuration](images/zapier_trigger_api_configuration_easy.png)
 
 Now, this is where we diverge a little bit from the normal path. If you notice, right under the API Endpoint header you will see the following text: 
 ```
@@ -87,25 +87,25 @@ Enter the URL Zapier will poll for new items. **This request must return an arra
 This is where ABP makes it a little difficult for us, seeing as how the responses for the API are actually paginated responses with the array of results being a sub item. If you were to test the zapier now, it would fail becuase the array isn't the only thing being returned from the API.
 
 To address this, click on the button that says "Switch to Code Mode". This will take the content that you entered into the form and transcribe that into the javascript code that powers the backend logic. **It only does this transcribing the FIRST time you click that button**. Filling the form first makes it easier to fix the code side because all of the details will be present and you won't necessarily have to dig too deep into Zapier's formatting.
-![Zapier trigger api configuration code mode](/images/zapier_trigger_api_configuration_code_mode.png)
+![Zapier trigger api configuration code mode](images/zapier_trigger_api_configuration_code_mode.png)
 
 If you did everything correct, the fix for the API is easy. Just modify the return line (line 21 in my case) from `return results;` to `return results.items`.
-![zapier trigger api configuration return statement](/images/zapier_api_config_return_statement.png)
+![zapier trigger api configuration return statement](images/zapier_api_config_return_statement.png)
 
 Now you can press the "Save API Request & Continue" button to move on to Step 2
 
 ### API Configuration - Step 2
 If your "account" token has expired, you will need to open the dropdown menu and choose "Add a new account". Otherwise you can move on.
-![Zapier add a new account](/images/zapier_trigger_api_configuration_add_new_account.png)
+![Zapier add a new account](images/zapier_trigger_api_configuration_add_new_account.png)
 
 Pressing the "Test Your Request" button should return a successful test result.
-![successful test results in zapier](/images/zapier_trigger_api_configuration_test_results.png)
+![successful test results in zapier](images/zapier_trigger_api_configuration_test_results.png)
 
 Press the "Finish Testing & Continue" button, then move into the "Define your Output" section in Step 3. Press the "Use Response from Test Data" to populate the json model from the successful test, then press the "Generate Output Field Definitions" to auto-populate the output fields.
-![output definition section in zapier](/images/zapier_trigger_api_configuration_output_definition.png)
+![output definition section in zapier](images/zapier_trigger_api_configuration_output_definition.png)
 
 You can leave it like this if you like, I prefer to clean up the data a bit by adding Labels, defining data types, and removing fields that I know I am not going to use in my zaps. If you do that, your output will look something like this when all is said and done:
-![output definition section in zapier all cleaned up](/images/zapier_trigger_api_configuration_output_pretty.png)
+![output definition section in zapier all cleaned up](images/zapier_trigger_api_configuration_output_pretty.png)
 
 When you are satisfied, you can click on the "Save Output & Finish" button.
 
@@ -117,20 +117,20 @@ Congradulations! You now have a trigger that will fire automatically after a use
 Our goal here is to create a trigger that will send an email to new users welcoming them to the party (I know it's redundant since the ABP framework has this built in, I just wanted an easy example with real world use-cases).
 
 Easiest way to get to a new Zap creation screen from where you are now is to scroll to the top of the page and click the "Create a Zap" button.
-![zapier create a zap button](/images/zapier_create_a_zap_button.png)
+![zapier create a zap button](images/zapier_create_a_zap_button.png)
 
 If you navigated away to celebreate your accomplisments thus far, you can get there by navigating to the [Zapier dashboard](https://zapier.com/app/dashboard) and clicking on the big orange "Create a Zap" button on the top of the sidebar menu.
 
 Once there, in the trigger step, find your application in the list and click on it
-![abpzapier app in the trigger list](/images/zapier_zap_trigger_app.png)
+![abpzapier app in the trigger list](images/zapier_zap_trigger_app.png)
 
 In the "Event" dropdown, choose the "New User" event, then press "Continue"
-![zapier new user event](/images/zapier_zap_new_user_event.png)
+![zapier new user event](images/zapier_zap_new_user_event.png)
 
 In the "Choose account" section, choose a currently valid account (if you have to create a new one here, it will prompt you to do so), then press continue.
 
 In the "Test trigger" section, press the "Test trigger" button. It should be successful and it should pull the data for a user that you will use in the subsequent steps.
-![successful test results for the trigger](/images/zapier_zap_successful_test.png)
+![successful test results for the trigger](images/zapier_zap_successful_test.png)
 
 Press "Continue" to move on to the action stage.
 
@@ -138,26 +138,26 @@ Press "Continue" to move on to the action stage.
 The action stage (or stages) are basically just what you want to have happen each time the trigger is fired. You can have more than one thing happen (you'll see an example of this in Part 3) or even have multi-stage workflows for events if you have a professional Zapier account. Prior to this step, I web into the admin account on our app and updated my personal details to be more descriptive.
 
 For our purposes, we are just going to do a simple email. In the searchbox, look for "email" and choose the "Email by Zapier" option.
-![email by zapier in the action search](/images/zapier_zap_action_email_by_zapier.png)
+![email by zapier in the action search](images/zapier_zap_action_email_by_zapier.png)
 
 For our event, choose the "Send Outbound Email" and press "Continue"
-![send outbound email event for the email by zapier action](/images/zapier_zap_action_event.png)
+![send outbound email event for the email by zapier action](images/zapier_zap_action_event.png)
 
 In the "Set up action" section, you will see a number of fields that are available to you. Clicking into one of these fields will show you available output from previous steps, in this case the output generated from our trigger. Fill out this form to meet your needs and press "Continue" when you are done
-![set up action form filled to my needs](/images/zapier_zap_setup_action_filled.png)
+![set up action form filled to my needs](images/zapier_zap_setup_action_filled.png)
 
 Validated the settings on the "Test action" section and press the "Test & continue" button if you are satisfied.
-![test action screen](/images/zapier_zap_test_action.png)
+![test action screen](images/zapier_zap_test_action.png)
 
 You should get the email formatted just the way you want it into whatever email address you had attached to that user.
-![test email in outlook](/images/outlook_test_email.png)
+![test email in outlook](images/outlook_test_email.png)
 
 Tweak the action however you see fit, and when you are satisified with the results press the "Publish Zap" button to make it live.
-![publish zap prompt](/images/zapier_publish_zap.png)
+![publish zap prompt](images/zapier_publish_zap.png)
 
 ## The Real test
 To test your new Zap in a real scenario, navigate back to your application and register a new user. The email that you registered the new email with should get that welcome email when the next polling interval is hit. You may want to tweak the email to include just the username instead of the first name and last name, since those aren't on the default registration page. Here is what I got when I registered my gmail account with a new user (then very quickly updated my personal details)
-![welcome email in the gmail](/images/gmail_production_email.png)
+![welcome email in the gmail](images/gmail_production_email.png)
 
 
 # Conclusion
