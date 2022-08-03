@@ -112,7 +112,7 @@ You can leave it like this if you like, I prefer to clean up the data a bit by a
 
 When you are satisfied, you can click on the "Save Output & Finish" button.
 
-Congradulations! You now have a trigger that will fire automatically after a user is created in your system. Next step is to actually put that trigger to use in a Zap.
+Congratulations! You now have a trigger that will fire automatically after a user is created in your system. Next step is to actually put that trigger to use in a Zap.
 
 ## Creating a Zap with your new trigger.
 
@@ -122,7 +122,7 @@ Our goal here is to create a trigger that will send an email to new users welcom
 Easiest way to get to a new Zap creation screen from where you are now is to scroll to the top of the page and click the "Create a Zap" button.
 ![zapier create a zap button](images/zapier_create_a_zap_button.png)
 
-If you navigated away to celebreate your accomplisments thus far, you can get there by navigating to the [Zapier dashboard](https://zapier.com/app/dashboard) and clicking on the big orange "Create a Zap" button on the top of the sidebar menu.
+If you navigated away to celebrate  your accomplishments thus far, you can get there by navigating to the [Zapier dashboard](https://zapier.com/app/dashboard) and clicking on the big orange "Create a Zap" button on the top of the sidebar menu.
 
 Once there, in the trigger step, find your application in the list and click on it
 ![abpzapier app in the trigger list](images/zapier_zap_trigger_app.png)
@@ -155,7 +155,7 @@ Validated the settings on the "Test action" section and press the "Test & contin
 You should get the email formatted just the way you want it into whatever email address you had attached to that user.
 ![test email in outlook](images/outlook_test_email.png)
 
-Tweak the action however you see fit, and when you are satisified with the results press the "Publish Zap" button to make it live.
+Tweak the action however you see fit, and when you are satisfied with the results press the "Publish Zap" button to make it live.
 ![publish zap prompt](images/zapier_publish_zap.png)
 
 ## The Real test
@@ -164,4 +164,4 @@ To test your new Zap in a real scenario, navigate back to your application and r
 
 
 # Conclusion
-This is a pretty basic walkthrough for a simple use case scenario, but there is a lot of power in the Zapier platform. They have 3800+ integrations and are growing regularly, so you can definently find something to meet your needs and make your life just a little bit easier.
+This is a pretty basic walkthrough for a simple use case scenario, but there is a lot of power in the Zapier platform. They have 3800+ integrations and are growing regularly, so you can definitely find something to meet your needs and make your life just a little bit easier.
