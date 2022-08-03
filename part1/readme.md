@@ -35,7 +35,7 @@ If you haven't already, sign up for a free [Zapier developer account](https://de
 
 ### Create the Zapier integration
 Click on the "Start a Zapier Integration" button at the top to begin the process.
-![Start a Zapier Integration button](/images/start_zapier_button.png)
+![Start a Zapier Integration button](images/start_zapier_button.png)
 
 Fill out the form with the necessary details. Here I am only creating the bare minimum required information:
 - Name: AbpZapier
