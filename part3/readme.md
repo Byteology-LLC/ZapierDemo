@@ -27,3 +27,7 @@ You will also need an SSL certificate. Here are a few good resources for getting
 - <https://github.com/rmbolger/Posh-ACME>
 
 If you are still struggling with allowing public access to your development environment, let me know if the comments and I will throw together a more comprehensive tutorial on how to get it done.
+
+# Development
+
+Coming soon.
